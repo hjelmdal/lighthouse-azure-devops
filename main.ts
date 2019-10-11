@@ -20,6 +20,16 @@ const run = async (url: string, options: chromeLauncher.Options) => {
       
       console.log('Successfully Written to File: results.json');
     });
+    const htmlReport = ReportGenerator.generateReport(results.lhr, 'html');
+    fs.writeFile('results.html', htmlReport, (err) => {
+      if (err) {
+        console.log(err);
+
+        return;
+      };
+      
+      console.log('Successfully Written to File: results.html');
+    });
   } catch (error) {
     throw new Error(error);
   } finally {
@@ -27,6 +37,6 @@ const run = async (url: string, options: chromeLauncher.Options) => {
   }
 }
 
-const urlToTest = 'https://www.abrickis.me/';
+const urlToTest = 'https://dev.v3.weplan.dk/test';
 
 run(urlToTest, { chromeFlags: ['--headless'] });
